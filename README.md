@@ -3,4 +3,4 @@ Posts, e redes sociais
 
 
 ## Mindmap
-![Mindmap](https://github.com/richellyitalo/blog-django/blob/master/.data/blog-projeto_mindmap.png)
+![Mindmap](https://raw.githubusercontent.com/richellyitalo/blog-django/master/.data/blog-projeto_mindmap.png)
