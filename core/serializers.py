@@ -17,9 +17,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
+
     class Meta:
         model = Post
         fields = (
+            'id',
             'title',
             'excerpt',
             'content',

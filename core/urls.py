@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import PostView
+from .views import PostViewListCreate, PostViewDetailUpdateDelete
 
 
 urlpatterns = [
-    path('posts/', PostView.as_view()),
+    path('posts/', PostViewListCreate.as_view()),
+    path('posts/<int:pk>', PostViewDetailUpdateDelete.as_view()),
 ]
