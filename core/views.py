@@ -5,9 +5,8 @@ from rest_framework.response import Response
 from rest_framework import mixins, serializers
 from rest_framework import generics
 
-
-from .serializers import PostSerializer
-from .models import Post
+from .serializers import PostSerializer, PageSerializer
+from .models import Post, Page
 
 
 class PostViewListCreate(mixins.ListModelMixin,
@@ -35,16 +34,23 @@ class PostViewDetailUpdateDelete(mixins.RetrieveModelMixin,
 
     def put(self, request, *args, **kwargs):
         # update parcial
-        # return self.update(request, *args, **kwargs)
+        # return self.partial_update(request, *args, **kwargs)
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
 
-class TestView(APIView):
+class PageViewListCreate(mixins.CreateModelMixin,
+                         mixins.ListModelMixin,
+                         generics.GenericAPIView):
+    queryset = Page.objects.all()
+    serializer_class = PageSerializer
+
     def get(self, request, *args, **kwargs):
-        return Response({'oi': "teste"})
+        return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        return Response(request.data)
+        return self.create(request, *args, **kwargs)
+
+

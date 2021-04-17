@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import Post
+from .models import Post, Page
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -29,4 +29,15 @@ class PostSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'owner'
+        )
+
+
+class PageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Page
+        fields = (
+            'id',
+            'title',
+            'content',
+            'image'
         )
