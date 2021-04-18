@@ -29,11 +29,6 @@ Banners
   [x] Down Sort Order
   [x] Delete
   [ ] Sum clicks
-Social networking
-  [ ] Create
-  [ ] Read
-  [ ] Update
-  [ ] Delete
 Auth
   [ ] Protect routes
   [ ] Token generation
