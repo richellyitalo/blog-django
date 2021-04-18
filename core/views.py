@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import mixins, serializers
-from rest_framework import generics
+from rest_framework import mixins, serializers, generics, status
+from rest_framework.decorators import api_view
 
 from .serializers import (
     PostSerializer,
@@ -122,3 +122,50 @@ class BannerViewDetailUpdateDelete(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, args, kwargs)
+
+
+""" Banners: set order """
+
+
+@api_view(['PATCH'])
+def up_order_banner(request, pk):
+    try:
+        banner = Banner.objects.get(pk=pk)
+    except Banner.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if banner.sort_order == 1:
+        return Response(BannerSerializer(banner).data)
+
+    qs = Banner.objects.filter(
+        sort_order__lt=banner.sort_order).order_by('-sort_order')[:1]
+    if qs.exists():
+        banner_destination = qs.get()
+        new_sorter_order = banner_destination.sort_order
+        banner_destination.sort_order = banner.sort_order
+        banner_destination.save()
+
+        banner.sort_order = new_sorter_order
+        banner.save()
+
+    return Response(BannerSerializer(banner).data)
+
+
+@api_view(['PATCH'])
+def down_order_banner(request, pk):
+    try:
+        banner = Banner.objects.get(pk=pk)
+    except Banner.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    qs = Banner.objects.filter(sort_order__gt=banner.sort_order).order_by('sort_order')[:1]
+    if qs.exists():
+        banner_destination = qs.get()
+        new_sorter_order = banner_destination.sort_order
+        banner_destination.sort_order = banner.sort_order
+        banner_destination.save()
+
+        banner.sort_order = new_sorter_order
+        banner.save()
+
+    return Response(BannerSerializer(banner).data)

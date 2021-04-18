@@ -44,9 +44,11 @@ class PageSerializer(serializers.ModelSerializer):
 
 
 class BannerSerializer(serializers.ModelSerializer):
+    sort_order = serializers.ReadOnlyField()
     class Meta:
         model = Banner
-        exclude = ['sort_order', ]
+        fields = '__all__'
+        # exclude = ['sort_order', ]
 
 
 class BannerSerializerUpdate(serializers.ModelSerializer):
