@@ -6,7 +6,13 @@ from rest_framework import mixins, serializers, generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authentication import SessionAuthentication,\
     BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+    BasePermission,
+    SAFE_METHODS
+)
+
 from .auth import BearerAuthentication
 
 from .serializers import (
@@ -34,7 +40,7 @@ class PostViewListCreate(
         generics.GenericAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
-    permission_classes = [IsAuthenticated | ReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -49,7 +55,7 @@ class PostViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                  generics.GenericAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
-    permission_classes = [IsAuthenticated | ReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -87,7 +93,7 @@ class PageViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                  generics.GenericAPIView):
     queryset = Page.objects.all()
     serializer_class = PageSerializer
-    permission_classes = [IsAuthenticated | ReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -110,7 +116,7 @@ class BannerViewListCreate(mixins.ListModelMixin,
 
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
-    permission_classes = [IsAuthenticated | ReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -124,7 +130,7 @@ class BannerViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                    generics.GenericAPIView):
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
-    permission_classes = [IsAuthenticated | ReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, args, kwargs)
