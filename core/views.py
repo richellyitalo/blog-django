@@ -158,7 +158,8 @@ def down_order_banner(request, pk):
     except Banner.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    qs = Banner.objects.filter(sort_order__gt=banner.sort_order).order_by('sort_order')[:1]
+    qs = Banner.objects.filter(
+        sort_order__gt=banner.sort_order).order_by('sort_order')[:1]
     if qs.exists():
         banner_destination = qs.get()
         new_sorter_order = banner_destination.sort_order
