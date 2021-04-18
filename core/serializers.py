@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import Post, Page
+from .models import Post, Page, Banner
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -41,3 +41,16 @@ class PageSerializer(serializers.ModelSerializer):
             'content',
             'image'
         )
+
+
+class BannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Banner
+        exclude = ['sort_order', ]
+
+
+class BannerSerializerUpdate(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+    class Meta:
+        model = Banner
+        exclude = ['sort_order', ]
