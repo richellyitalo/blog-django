@@ -30,9 +30,10 @@ Banners
   [x] Delete
   [ ] Sum clicks
 Auth
-  [ ] Protect routes
-  [ ] Token generation
-  [ ] Login (get new token)
+  [x] Protect routes
+  [x] Token generation
+  [x] Login (get new token)
+  [ ] Recover password
 Contact
   [ ] Send contact mail
 ```

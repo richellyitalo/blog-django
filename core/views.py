@@ -3,10 +3,11 @@ from django.core.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import mixins, serializers, generics, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authentication import SessionAuthentication,\
-    BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+    BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
+from .auth import BearerAuthentication
 
 from .serializers import (
     PostSerializer,
@@ -17,18 +18,23 @@ from .serializers import (
 from .models import Post, Page, Banner
 
 
+class ReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.method in SAFE_METHODS
+
+
 '''
 Post view
 '''
 
 
-class PostViewListCreate(mixins.ListModelMixin,
-                         mixins.CreateModelMixin,
-                         generics.GenericAPIView):
+class PostViewListCreate(
+        mixins.ListModelMixin,
+        mixins.CreateModelMixin,
+        generics.GenericAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated | ReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -43,6 +49,7 @@ class PostViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                  generics.GenericAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
+    permission_classes = [IsAuthenticated | ReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -80,6 +87,7 @@ class PageViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                  generics.GenericAPIView):
     queryset = Page.objects.all()
     serializer_class = PageSerializer
+    permission_classes = [IsAuthenticated | ReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -102,6 +110,7 @@ class BannerViewListCreate(mixins.ListModelMixin,
 
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
+    permission_classes = [IsAuthenticated | ReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -115,6 +124,7 @@ class BannerViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                    generics.GenericAPIView):
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
+    permission_classes = [IsAuthenticated | ReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, args, kwargs)
