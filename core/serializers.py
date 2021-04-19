@@ -56,3 +56,11 @@ class BannerSerializerUpdate(serializers.ModelSerializer):
     class Meta:
         model = Banner
         exclude = ['sort_order', ]
+
+
+""" Contact form """
+class ContactMail(serializers.Serializer):
+    subject = serializers.CharField(max_length=100)
+    name = serializers.CharField(max_length=100)
+    email = serializers.EmailField()
+    message = serializers.CharField(max_length=1000)

@@ -14,7 +14,7 @@ Posts
   [x] Delete
   [ ] Most vieweds
   [ ] Pagination
-  [ ] Sum views
+  [ ] Count views
 Pages
   [x] Create
   [x] Read
@@ -28,14 +28,14 @@ Banners
   [x] Up Sort Order
   [x] Down Sort Order
   [x] Delete
-  [ ] Sum clicks
+  [ ] Count clicks
 Auth
   [x] Protect routes
   [x] Token generation
   [x] Login (get new token)
   [ ] Recover password
 Contact
-  [ ] Send contact mail
+  [x] Send contact mail
 ```
 
 

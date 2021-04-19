@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'blogdjango.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',    
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -136,7 +136,7 @@ REST_FRAMEWORK = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / "static" #os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / "static"  # os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 
@@ -151,3 +151,13 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Mail config
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '7dabd90189860b'
+EMAIL_HOST_PASSWORD = '1d01b30c2ba453'
+EMAIL_PORT = '2525'
+
+EMAIL_CONTACT = 'contato@django.com'
