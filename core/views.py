@@ -76,6 +76,14 @@ class PostViewDetailUpdateDelete(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
 
 
+@api_view(['GET'])
+@permission_classes(())
+def posts_most_vieweds(request):
+    qs = Post.objects.order_by('-views')
+    posts = PostSerializer(qs, many=True).data
+    return Response({"posts": posts})
+
+
 '''
 Page view
 '''

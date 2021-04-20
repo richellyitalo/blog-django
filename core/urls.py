@@ -11,6 +11,7 @@ router = DefaultRouter()
 urlpatterns = [
     path('posts/', views.PostViewListCreate.as_view()),
     path('posts/<int:pk>', views.PostViewDetailUpdateDelete.as_view()),
+    path('posts/most-vieweds/', views.posts_most_vieweds),
 
     path('pages/', views.PageViewListCreate.as_view()),
     path('pages/<int:pk>', views.PageViewDetailUpdateDelete.as_view()),
