@@ -47,8 +47,7 @@ class BannerSerializer(serializers.ModelSerializer):
     sort_order = serializers.ReadOnlyField()
     class Meta:
         model = Banner
-        fields = '__all__'
-        # exclude = ['sort_order', ]
+        exclude = ['clicks', ]
 
 
 class BannerSerializerUpdate(serializers.ModelSerializer):

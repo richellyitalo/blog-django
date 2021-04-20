@@ -22,5 +22,7 @@ urlpatterns = [
     path('banners/<int:pk>/up-sorter', views.up_order_banner),
     path('banners/<int:pk>/down-sorter', views.down_order_banner),
 
+    path('banners/<int:pk>/click', views.click_banner),
+
     path('send-mail/', views.send_contact_form)
 ]  # + router.urls

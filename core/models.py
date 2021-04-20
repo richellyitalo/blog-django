@@ -40,10 +40,14 @@ class Banner(TimestampableMixin):
     sort_order = models.PositiveIntegerField(default=1)
     url = models.CharField(max_length=400, blank=True)
     new_tab = models.BooleanField(default=False)
+    clicks = models.PositiveIntegerField(default=0)
     owner = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.SET_NULL)
 
-    
+    def add_click(self):
+        self.clicks += 1
+        self.save()
+
     def __str__(self):
         return self.title
 

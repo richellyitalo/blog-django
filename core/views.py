@@ -150,6 +150,22 @@ class BannerViewDetailUpdateDelete(mixins.RetrieveModelMixin,
         return self.destroy(request, args, kwargs)
 
 
+""" Banners: register click banner """
+
+
+@api_view(['GET'])
+@permission_classes(())
+def click_banner(request, pk):
+    try:
+        banner = Banner.objects.get(pk=pk)
+        if banner.url in (None, ""):
+            return Response({"message": "Banner not has url"}, status=status.HTTP_404_NOT_FOUND)
+        banner.add_click()
+        return Response({"url": banner.url, "new_window": banner.new_tab})
+    except Banner.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 """ Banners: set order """
 
 
