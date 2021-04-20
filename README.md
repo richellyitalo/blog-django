@@ -14,7 +14,7 @@ Posts
   [x] Delete
   [ ] Most vieweds
   [ ] Pagination
-  [ ] Count views
+  [x] Count views
 Pages
   [x] Create
   [x] Read
@@ -28,7 +28,7 @@ Banners
   [x] Up Sort Order
   [x] Down Sort Order
   [x] Delete
-  [ ] Count clicks
+  [x] Count clicks
 Auth
   [x] Protect routes
   [x] Token generation

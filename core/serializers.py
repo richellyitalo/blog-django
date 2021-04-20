@@ -17,6 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     owner = UserSerializer(read_only=True)
+    views = serializers.ReadOnlyField()
 
     class Meta:
         model = Post
@@ -26,6 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
             'excerpt',
             'content',
             'image',
+            'views',
             'created_at',
             'updated_at',
             'owner'

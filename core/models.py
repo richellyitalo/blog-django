@@ -18,8 +18,13 @@ class Post(TimestampableMixin):
     excerpt = models.CharField(max_length=150)
     content = models.TextField()
     image = models.ImageField(upload_to='image/%Y/%m/%d/', blank=True)
+    views = models.PositiveBigIntegerField(default=0)
     owner = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.SET_NULL)
+
+    def add_view(self):
+        self.views += 1
+        self.save()
 
     def __str__(self):
         return self.title

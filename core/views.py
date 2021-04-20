@@ -63,6 +63,8 @@ class PostViewDetailUpdateDelete(mixins.RetrieveModelMixin,
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
+        post = self.get_object()
+        post.add_view()
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
