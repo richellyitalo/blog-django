@@ -12,7 +12,7 @@ Posts
   [x] Read
   [x] Update
   [x] Delete
-  [ ] Most vieweds
+  [x] Most vieweds
   [ ] Pagination
   [x] Count views
 Pages
@@ -39,13 +39,13 @@ Contact
 ```
 
 
-## Instruções para executar projeto
+## Instructions to start project
 
-Inicia virtualização
+Starts virtualization
 `python -m venv ./venv`
 
-Acessando o ambiente virtual
+Accessing environment
 `source ./venv/Scripts/activate`
 
-No windows
+At Microsoft Windows
 `./venv/Scripts/activate.bat`
