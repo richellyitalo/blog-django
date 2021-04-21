@@ -15,6 +15,7 @@ class TimestampableMixin(models.Model):
 
 class Post(TimestampableMixin):
     title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True, db_index=True)
     excerpt = models.CharField(max_length=150)
     content = models.TextField()
     image = models.ImageField(upload_to='image/%Y/%m/%d/', blank=True)
@@ -32,6 +33,7 @@ class Post(TimestampableMixin):
 
 class Page(TimestampableMixin):
     title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=100, unique=True, db_index=True)
     content = models.TextField()
     image = models.ImageField(upload_to='image/%Y/%m/%d/', blank=True)
 

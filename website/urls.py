@@ -6,6 +6,8 @@ from . import viewsets
 
 router = DefaultRouter()
 router.register(r'posts', viewsets.PostViewSet, basename='posts')
+router.register(r'pages', viewsets.PageViewSet, basename='pages')
+router.register(r'banners', viewsets.BannerViewSet, basename='banners')
 
 urlpatterns = router.urls
 

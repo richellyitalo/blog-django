@@ -24,6 +24,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'slug',
             'excerpt',
             'content',
             'image',
@@ -40,6 +41,7 @@ class PageSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'slug',
             'content',
             'image'
         )
