@@ -1,5 +1,6 @@
 from rest_framework import viewsets, pagination
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 from core.models import Post, Page, Banner
 from core.serializers import (
@@ -20,6 +21,12 @@ class PostViewSet(PublicViewSet):
         serializer = self.get_serializer(post)
         post.add_view()
         return Response(serializer.data)
+
+    @action(detail=False, methods=['GET'])
+    def most_vieweds(self, request):
+        queryset = self.paginate_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return self.get_paginated_response(serializer.data)
 
 
 class PageViewSet(PublicViewSet):
