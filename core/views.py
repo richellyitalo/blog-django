@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import mixins, serializers, generics, status
+from rest_framework import mixins, serializers, generics, status, pagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authentication import (
     SessionAuthentication,
@@ -29,6 +29,10 @@ from .serializers import (
 from .models import Post, Page, Banner
 
 
+class StandardResultsSetPagination(pagination.LimitOffsetPagination):
+    limit = 1
+
+
 class ReadOnly(BasePermission):
     def has_permission(self, request, view):
         return request.method in SAFE_METHODS
@@ -39,10 +43,11 @@ Post view
 '''
 
 
-class PostViewListCreate(
-        mixins.ListModelMixin,
-        mixins.CreateModelMixin,
-        generics.GenericAPIView):
+# class PostViewListCreate(
+#         mixins.ListModelMixin,
+#         mixins.CreateModelMixin,
+#         generics.GenericAPIView):
+class PostViewListCreate(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]

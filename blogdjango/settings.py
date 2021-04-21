@@ -129,7 +129,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
         'core.auth.BearerAuthentication',
-    )
+    ),
+
+    # Uncoment to use default pagination
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20
 }
 
 
