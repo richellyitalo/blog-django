@@ -22,10 +22,12 @@ from rest_framework.authtoken import views
 
 
 from core import urls
+from website import urls as site_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(urls)),
+    path('api/', include(site_urls)),
+    path('api/admin/', include(urls)),
     path('api/auth/', views.obtain_auth_token),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

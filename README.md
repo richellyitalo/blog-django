@@ -36,6 +36,8 @@ Auth
   [ ] Recover password
 Contact
   [x] Send contact mail
+Blog/Site
+  [ ] Api/Public routes and views
 ```
 
 
