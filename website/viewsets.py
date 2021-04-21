@@ -9,8 +9,9 @@ from core.viewsets import PublicViewSet, PublicViewSetNoPagination
 class PostViewSet(PublicViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    lookup_field = 'slug'
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, slug=None):
         post = self.get_object()
         serializer = self.get_serializer(post)
         post.add_view()
