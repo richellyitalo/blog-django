@@ -37,7 +37,7 @@ Auth
 Contact
   [x] Send contact mail
 Blog/Site
-  [ ] Api/Public routes and views
+  [x] Api/Public routes and views
 ```
 
 

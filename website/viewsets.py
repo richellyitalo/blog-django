@@ -2,7 +2,11 @@ from rest_framework import viewsets, pagination
 from rest_framework.response import Response
 
 from core.models import Post, Page, Banner
-from core.serializers import PostSerializer, PageSerializer, BannerSerializer
+from core.serializers import (
+    PostSerializer,
+    PageSerializer,
+    BannerSerializer
+)
 from core.viewsets import PublicViewSet, PublicViewSetNoPagination
 
 

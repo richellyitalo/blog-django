@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
 from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -23,8 +21,7 @@ from .serializers import (
     PostSerializer,
     PageSerializer,
     BannerSerializer,
-    BannerSerializerUpdate,
-    ContactMail
+    BannerSerializerUpdate
 )
 from .models import Post, Page, Banner
 
@@ -50,7 +47,6 @@ Post view
 class PostViewListCreate(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -65,7 +61,6 @@ class PostViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                  generics.GenericAPIView):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
-    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         post = self.get_object()
@@ -113,7 +108,6 @@ class PageViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                  generics.GenericAPIView):
     queryset = Page.objects.all()
     serializer_class = PageSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -136,7 +130,6 @@ class BannerViewListCreate(mixins.ListModelMixin,
 
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -150,7 +143,6 @@ class BannerViewDetailUpdateDelete(mixins.RetrieveModelMixin,
                                    generics.GenericAPIView):
     queryset = Banner.objects.all()
     serializer_class = BannerSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, args, kwargs)
@@ -228,20 +220,3 @@ def down_order_banner(request, pk):
 
     return Response(BannerSerializer(banner).data)
 
-
-@api_view(['POST'])
-@permission_classes(())
-def send_contact_form(request):
-    serializer = ContactMail(data=request.data)
-    if serializer.is_valid():
-        send_mail(
-            "Contact form " + serializer.validated_data['subject'],
-            serializer.validated_data['message'],
-            serializer.validated_data['email'],
-            [settings.EMAIL_CONTACT],
-            html_message=serializer.validated_data['message'],
-            fail_silently=False,
-        )
-
-        return Response({'message': 'Mail sent'})
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
