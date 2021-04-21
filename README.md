@@ -13,7 +13,7 @@ Posts
   [x] Update
   [x] Delete
   [x] Most vieweds
-  [ ] Pagination
+  [x] Pagination
   [x] Count views
 Pages
   [x] Create
